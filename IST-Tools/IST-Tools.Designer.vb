@@ -32,6 +32,7 @@ Partial Class frmISTTools
         Me.btnEditHostsFile = New System.Windows.Forms.Button()
         Me.btnLaunchVNCViewer = New System.Windows.Forms.Button()
         Me.tpPSTools = New System.Windows.Forms.TabPage()
+        Me.btnPSExec = New System.Windows.Forms.Button()
         Me.btnRemoteInfo = New System.Windows.Forms.Button()
         Me.btnPSToolsClose = New System.Windows.Forms.Button()
         Me.btnRestartRemoteService = New System.Windows.Forms.Button()
@@ -44,7 +45,6 @@ Partial Class frmISTTools
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.lblIPAddress = New System.Windows.Forms.Label()
         Me.txtIPAddress = New System.Windows.Forms.TextBox()
-        Me.btnPSExec = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpNetwork.SuspendLayout()
         Me.tpPSTools.SuspendLayout()
@@ -165,13 +165,24 @@ Partial Class frmISTTools
         Me.tpPSTools.Text = "PSTools"
         Me.tpPSTools.ToolTipText = "Contains the PSTools suite to use against the remote PC."
         '
+        'btnPSExec
+        '
+        Me.btnPSExec.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnPSExec.Location = New System.Drawing.Point(7, 125)
+        Me.btnPSExec.Name = "btnPSExec"
+        Me.btnPSExec.Size = New System.Drawing.Size(272, 23)
+        Me.btnPSExec.TabIndex = 5
+        Me.btnPSExec.Text = "PSExec to remote PC"
+        Me.btnPSExec.UseVisualStyleBackColor = True
+        '
         'btnRemoteInfo
         '
         Me.btnRemoteInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnRemoteInfo.Location = New System.Drawing.Point(7, 95)
         Me.btnRemoteInfo.Name = "btnRemoteInfo"
-        Me.btnRemoteInfo.Size = New System.Drawing.Size(271, 23)
+        Me.btnRemoteInfo.Size = New System.Drawing.Size(272, 23)
         Me.btnRemoteInfo.TabIndex = 4
         Me.btnRemoteInfo.Text = "Display Remote PC Info"
         Me.btnRemoteInfo.UseVisualStyleBackColor = True
@@ -191,7 +202,7 @@ Partial Class frmISTTools
         '
         Me.btnRestartRemoteService.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRestartRemoteService.Location = New System.Drawing.Point(6, 65)
+        Me.btnRestartRemoteService.Location = New System.Drawing.Point(7, 65)
         Me.btnRestartRemoteService.Name = "btnRestartRemoteService"
         Me.btnRestartRemoteService.Size = New System.Drawing.Size(272, 23)
         Me.btnRestartRemoteService.TabIndex = 2
@@ -202,9 +213,9 @@ Partial Class frmISTTools
         '
         Me.btnForcedRemoteRestart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnForcedRemoteRestart.Location = New System.Drawing.Point(6, 36)
+        Me.btnForcedRemoteRestart.Location = New System.Drawing.Point(7, 36)
         Me.btnForcedRemoteRestart.Name = "btnForcedRemoteRestart"
-        Me.btnForcedRemoteRestart.Size = New System.Drawing.Size(273, 23)
+        Me.btnForcedRemoteRestart.Size = New System.Drawing.Size(272, 23)
         Me.btnForcedRemoteRestart.TabIndex = 1
         Me.btnForcedRemoteRestart.Text = "Forced Remote Restart After 15 Seconds"
         Me.btnForcedRemoteRestart.UseVisualStyleBackColor = True
@@ -293,17 +304,6 @@ Partial Class frmISTTools
         Me.txtIPAddress.Name = "txtIPAddress"
         Me.txtIPAddress.Size = New System.Drawing.Size(230, 20)
         Me.txtIPAddress.TabIndex = 0
-        '
-        'btnPSExec
-        '
-        Me.btnPSExec.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnPSExec.Location = New System.Drawing.Point(7, 125)
-        Me.btnPSExec.Name = "btnPSExec"
-        Me.btnPSExec.Size = New System.Drawing.Size(271, 23)
-        Me.btnPSExec.TabIndex = 5
-        Me.btnPSExec.Text = "PSExec to remote PC"
-        Me.btnPSExec.UseVisualStyleBackColor = True
         '
         'frmISTTools
         '

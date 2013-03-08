@@ -3,6 +3,7 @@
     Public strSafeFileName As String
     Public strIPListName As String
     Public strSafeIPListName As String
+    Public strFileContents As String
 
     Private Sub btnClose_Click(sender As System.Object, e As System.EventArgs) Handles btnClose.Click
         Me.Close()
@@ -28,7 +29,6 @@
     End Sub
 
     Private Sub btnIPList_Click(sender As System.Object, e As System.EventArgs) Handles btnIPList.Click
-        Dim strFileContents As String
         With OpenFileDialog2
             .Filter = "Text Files (*.txt)|*.txt"
             .FilterIndex = 1

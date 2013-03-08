@@ -5,9 +5,12 @@
         Dim strPSServicePath As String = "C:\Program Files (x86)\IST-Tools\PSTools\psservice.exe"
         Dim intService As Integer = cmbServices.SelectedIndex
 
-        'Set variables for VNC Services
-        Dim strVNCArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & "WinVNC4" & Chr(34)
-        Dim strVNCArgsStop As String = "\\" & strIPAddress & " stop " & Chr(34) & "WinVNC4" & Chr(34)
+        'Set variables for VNC4 Services
+        Dim strVNC4ArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & "WinVNC4" & Chr(34)
+        Dim strVNC4ArgsStop As String = "\\" & strIPAddress & " stop " & Chr(34) & "WinVNC4" & Chr(34)
+        'Set variables for VNC5 services
+        Dim strVNC5ArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & "vncserver" & Chr(34)
+        Dim strVNC5ArgsStop As String = "\\" & strIPAddress & " stop " & Chr(34) & "vncserver" & Chr(34)
 
         'Set variables for RemoteRegistry Service
         Dim strRRArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & "RemoteRegistry" & Chr(34)
@@ -24,30 +27,56 @@
 
         Select Case intService
             Case 0
-                If rdbStart.Checked Then
-                    Try
-                        Process.Start(strPSServicePath, strVNCArgsStart)
-                    Catch ex As Exception
-                        Throw New Exception(ex.Message)
-                    End Try
-                ElseIf rdbStop.Checked Then
-                    Try
-                        Process.Start(strPSServicePath, strVNCArgsStop)
-                    Catch ex As Exception
-                        Throw New Exception(ex.Message)
-                    End Try
-                ElseIf rdbRestart.Checked Then
-                    Try
-                        Process.Start(strPSServicePath, strVNCArgsStop)
-                        'Pause for service to stop
-                        System.Threading.Thread.Sleep(5000)
-                        Process.Start(strPSServicePath, strVNCArgsStart)
-                    Catch ex As Exception
-                        Throw New Exception(ex.Message)
-                    End Try
+                If My.Computer.FileSystem.FileExists("\\" & strIPAddress & _
+                                                     "\c$\Program Files\RealVNC\VNC Server\vncserver.exe") Then
+                    If rdbStart.Checked Then
+                        Try
+                            Process.Start(strPSServicePath, strVNC5ArgsStart)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    ElseIf rdbStop.Checked Then
+                        Try
+                            Process.Start(strPSServicePath, strVNC5ArgsStop)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    ElseIf rdbRestart.Checked Then
+                        Try
+                            Process.Start(strPSServicePath, strVNC5ArgsStop)
+                            'Pause for 5 seconds
+                            System.Threading.Thread.Sleep(5000)
+                            Process.Start(strPSServicePath, strVNC5ArgsStart)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    End If
                 Else
-                    MessageBox.Show("Please select ""Start"", ""Stop"", or ""Restart""", "Error", MessageBoxButtons.OK, _
-                                    MessageBoxIcon.Warning)
+                    If rdbStart.Checked Then
+                        Try
+                            Process.Start(strPSServicePath, strVNC4ArgsStart)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    ElseIf rdbStop.Checked Then
+                        Try
+                            Process.Start(strPSServicePath, strVNC4ArgsStop)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    ElseIf rdbRestart.Checked Then
+                        Try
+                            Process.Start(strPSServicePath, strVNC4ArgsStop)
+                            'Pause for service to stop
+                            System.Threading.Thread.Sleep(5000)
+                            Process.Start(strPSServicePath, strVNC4ArgsStart)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    Else
+                        MessageBox.Show("Please select ""Start"", ""Stop"", or ""Restart""", "Error", MessageBoxButtons.OK, _
+                                        MessageBoxIcon.Warning)
+                    End If
                 End If
             Case 1
                 If rdbStart.Checked Then
