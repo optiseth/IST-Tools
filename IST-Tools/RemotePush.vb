@@ -14,7 +14,7 @@
             .Title = "File to Push"
         End With
 
-        'Show the open file dialog and if the user clicks ok then try to push the file to the remote pc
+        'Show the open file dialog and if the user clicks ok then save the path and file name of the selected file
         If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
             Try
                 'Save the path

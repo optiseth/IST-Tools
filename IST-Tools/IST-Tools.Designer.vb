@@ -25,6 +25,7 @@ Partial Class frmISTTools
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmISTTools))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpNetwork = New System.Windows.Forms.TabPage()
+        Me.btnRemotePush = New System.Windows.Forms.Button()
         Me.btnContinuousPing = New System.Windows.Forms.Button()
         Me.btnNetworkClose = New System.Windows.Forms.Button()
         Me.btnNavigateToRoot = New System.Windows.Forms.Button()
@@ -36,8 +37,6 @@ Partial Class frmISTTools
         Me.btnRestartRemoteService = New System.Windows.Forms.Button()
         Me.btnForcedRemoteRestart = New System.Windows.Forms.Button()
         Me.btnLoggedOnUser = New System.Windows.Forms.Button()
-        Me.tpRegistryControl = New System.Windows.Forms.TabPage()
-        Me.btnRegistryClose = New System.Windows.Forms.Button()
         Me.tpAbout = New System.Windows.Forms.TabPage()
         Me.btnAboutClose = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -45,11 +44,10 @@ Partial Class frmISTTools
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.lblIPAddress = New System.Windows.Forms.Label()
         Me.txtIPAddress = New System.Windows.Forms.TextBox()
-        Me.btnRemotePush = New System.Windows.Forms.Button()
+        Me.btnPSExec = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpNetwork.SuspendLayout()
         Me.tpPSTools.SuspendLayout()
-        Me.tpRegistryControl.SuspendLayout()
         Me.tpAbout.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -60,7 +58,6 @@ Partial Class frmISTTools
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.tpNetwork)
         Me.TabControl1.Controls.Add(Me.tpPSTools)
-        Me.TabControl1.Controls.Add(Me.tpRegistryControl)
         Me.TabControl1.Controls.Add(Me.tpAbout)
         Me.TabControl1.Location = New System.Drawing.Point(13, 54)
         Me.TabControl1.Name = "TabControl1"
@@ -84,6 +81,17 @@ Partial Class frmISTTools
         Me.tpNetwork.TabIndex = 0
         Me.tpNetwork.Text = "Network"
         Me.tpNetwork.ToolTipText = "Contains Windows function to use against remote PC."
+        '
+        'btnRemotePush
+        '
+        Me.btnRemotePush.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRemotePush.Location = New System.Drawing.Point(7, 127)
+        Me.btnRemotePush.Name = "btnRemotePush"
+        Me.btnRemotePush.Size = New System.Drawing.Size(272, 23)
+        Me.btnRemotePush.TabIndex = 6
+        Me.btnRemotePush.Text = "Push File to c$\temp"
+        Me.btnRemotePush.UseVisualStyleBackColor = True
         '
         'btnContinuousPing
         '
@@ -143,6 +151,7 @@ Partial Class frmISTTools
         'tpPSTools
         '
         Me.tpPSTools.BackColor = System.Drawing.SystemColors.Control
+        Me.tpPSTools.Controls.Add(Me.btnPSExec)
         Me.tpPSTools.Controls.Add(Me.btnRemoteInfo)
         Me.tpPSTools.Controls.Add(Me.btnPSToolsClose)
         Me.tpPSTools.Controls.Add(Me.btnRestartRemoteService)
@@ -210,28 +219,6 @@ Partial Class frmISTTools
         Me.btnLoggedOnUser.TabIndex = 0
         Me.btnLoggedOnUser.Text = "Show Logged On User"
         Me.btnLoggedOnUser.UseVisualStyleBackColor = True
-        '
-        'tpRegistryControl
-        '
-        Me.tpRegistryControl.BackColor = System.Drawing.SystemColors.Control
-        Me.tpRegistryControl.Controls.Add(Me.btnRegistryClose)
-        Me.tpRegistryControl.Location = New System.Drawing.Point(4, 22)
-        Me.tpRegistryControl.Name = "tpRegistryControl"
-        Me.tpRegistryControl.Size = New System.Drawing.Size(285, 230)
-        Me.tpRegistryControl.TabIndex = 2
-        Me.tpRegistryControl.Text = "Registry Control"
-        Me.tpRegistryControl.ToolTipText = "Contains registry tweaks for the remote PC."
-        '
-        'btnRegistryClose
-        '
-        Me.btnRegistryClose.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRegistryClose.Location = New System.Drawing.Point(109, 201)
-        Me.btnRegistryClose.Name = "btnRegistryClose"
-        Me.btnRegistryClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnRegistryClose.TabIndex = 0
-        Me.btnRegistryClose.Text = "Close"
-        Me.btnRegistryClose.UseVisualStyleBackColor = True
         '
         'tpAbout
         '
@@ -307,16 +294,16 @@ Partial Class frmISTTools
         Me.txtIPAddress.Size = New System.Drawing.Size(230, 20)
         Me.txtIPAddress.TabIndex = 0
         '
-        'btnRemotePush
+        'btnPSExec
         '
-        Me.btnRemotePush.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.btnPSExec.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRemotePush.Location = New System.Drawing.Point(7, 127)
-        Me.btnRemotePush.Name = "btnRemotePush"
-        Me.btnRemotePush.Size = New System.Drawing.Size(272, 23)
-        Me.btnRemotePush.TabIndex = 6
-        Me.btnRemotePush.Text = "Push File to c$\temp"
-        Me.btnRemotePush.UseVisualStyleBackColor = True
+        Me.btnPSExec.Location = New System.Drawing.Point(7, 125)
+        Me.btnPSExec.Name = "btnPSExec"
+        Me.btnPSExec.Size = New System.Drawing.Size(271, 23)
+        Me.btnPSExec.TabIndex = 5
+        Me.btnPSExec.Text = "PSExec to remote PC"
+        Me.btnPSExec.UseVisualStyleBackColor = True
         '
         'frmISTTools
         '
@@ -332,7 +319,6 @@ Partial Class frmISTTools
         Me.TabControl1.ResumeLayout(False)
         Me.tpNetwork.ResumeLayout(False)
         Me.tpPSTools.ResumeLayout(False)
-        Me.tpRegistryControl.ResumeLayout(False)
         Me.tpAbout.ResumeLayout(False)
         Me.tpAbout.PerformLayout()
         Me.ResumeLayout(False)
@@ -350,8 +336,6 @@ Partial Class frmISTTools
     Friend WithEvents btnRestartRemoteService As System.Windows.Forms.Button
     Friend WithEvents btnForcedRemoteRestart As System.Windows.Forms.Button
     Friend WithEvents btnLoggedOnUser As System.Windows.Forms.Button
-    Friend WithEvents tpRegistryControl As System.Windows.Forms.TabPage
-    Friend WithEvents btnRegistryClose As System.Windows.Forms.Button
     Friend WithEvents lblIPAddress As System.Windows.Forms.Label
     Friend WithEvents txtIPAddress As System.Windows.Forms.TextBox
     Friend WithEvents btnContinuousPing As System.Windows.Forms.Button
@@ -362,5 +346,6 @@ Partial Class frmISTTools
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btnAbout As System.Windows.Forms.Button
     Friend WithEvents btnRemotePush As System.Windows.Forms.Button
+    Friend WithEvents btnPSExec As System.Windows.Forms.Button
 
 End Class

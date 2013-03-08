@@ -43,6 +43,7 @@ Partial Class frmRemotePush
         '
         'OpenFileDialog1
         '
+        Me.OpenFileDialog1.Multiselect = True
         '
         'btnCancel
         '
@@ -67,7 +68,7 @@ Partial Class frmRemotePush
         '
         Me.btnPushFile.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnPushFile.Location = New System.Drawing.Point(13, 74)
+        Me.btnPushFile.Location = New System.Drawing.Point(16, 75)
         Me.btnPushFile.Name = "btnPushFile"
         Me.btnPushFile.Size = New System.Drawing.Size(184, 23)
         Me.btnPushFile.TabIndex = 3

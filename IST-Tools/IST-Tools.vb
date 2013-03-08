@@ -1,9 +1,5 @@
 ﻿Public Class frmISTTools
 
-    Private Sub btnRegistryClose_Click(sender As System.Object, e As System.EventArgs) Handles btnRegistryClose.Click
-        Me.Close()
-    End Sub
-
     Private Sub btnPSToolsClose_Click(sender As System.Object, e As System.EventArgs) Handles btnPSToolsClose.Click
         Me.Close()
     End Sub
@@ -175,6 +171,15 @@
                             MessageBoxIcon.Warning)
         Else
             frmRemotePush.Show()
+        End If
+    End Sub
+
+    Private Sub btnPSExec_Click(sender As System.Object, e As System.EventArgs) Handles btnPSExec.Click
+        If txtIPAddress.Text = "" Then
+            MessageBox.Show("Please enter an IP address or host name!", "Error", MessageBoxButtons.OK, _
+                            MessageBoxIcon.Warning)
+        Else
+            frmPSExec.Show()
         End If
     End Sub
 End Class
