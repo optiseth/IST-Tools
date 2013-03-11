@@ -40,6 +40,9 @@
                 'Save IP file path
                 strIPListName = OpenFileDialog2.FileName
                 strSafeIPListName = OpenFileDialog2.SafeFileName
+                My.Computer.FileSystem.CopyFile(strIPListName, "C:\Program Files (x86)\IST-Tools\PSTools\" & _
+                                                strSafeIPListName)
+
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -58,21 +61,24 @@
         'Set path for PSExec
         Dim strCMDPath As String = "C:\Windows\system32\cmd.exe"
         Dim strPSExec As String = " /k " & Chr(34) & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psexec.exe" & Chr(34)
-        Dim strArgs As String = " \\" & frmISTTools.txtIPAddress.Text & " -s msiexec.exe /i " & _
+        Dim strArgs1 As String = " \\" & frmISTTools.txtIPAddress.Text & " -s msiexec.exe /i " & _
             Chr(34) & strFileName & Chr(34) & " /q" & Chr(34)
-        Dim strSingleArgs As String = strPSExec & strArgs
-        Dim strMultiArgs As String = " @" & strIPListName & " -s msiexec.exe /i " & Chr(34) & strFileName & Chr(34) & " /q"
+        Dim strSingleArgs As String = strPSExec & strArgs1
+        Dim strArgs2 As String = " @" & strSafeIPListName & " -s msiexec.exe /i " & _
+            Chr(34) & strFileName & Chr(34) & " /q" & Chr(34)
+        Dim strMultiArgs As String = strPSExec & strArgs2
 
         If rdbSinglePC.Checked And strFileName <> "" Then
             Try
-                'MessageBox.Show(strCMDPath & strSingleArgs, "Test")
                 Process.Start(strCMDPath, strSingleArgs)
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
         ElseIf rdbMultiplePCs.Checked And strIPListName <> "" Then
             Try
-                Process.Start(strPSExec, strMultiArgs)
+                Process.Start(strCMDPath, strMultiArgs)
+                'MessageBox.Show(strMultiArgs, "Test")
+                My.Computer.FileSystem.DeleteFile("C:\Program Files (x86)\IST-Tools\PSTools\" & strSafeIPListName)
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try

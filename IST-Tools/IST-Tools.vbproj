@@ -110,6 +110,12 @@
     <Compile Include="PSExec.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PSKill.Designer.vb">
+      <DependentUpon>PSKill.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PSKill.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="RemotePush.Designer.vb">
       <DependentUpon>RemotePush.vb</DependentUpon>
     </Compile>
@@ -138,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PSExec.resx">
       <DependentUpon>PSExec.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PSKill.resx">
+      <DependentUpon>PSKill.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RemotePush.resx">
       <DependentUpon>RemotePush.vb</DependentUpon>

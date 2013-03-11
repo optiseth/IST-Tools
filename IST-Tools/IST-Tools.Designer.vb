@@ -45,6 +45,7 @@ Partial Class frmISTTools
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.lblIPAddress = New System.Windows.Forms.Label()
         Me.txtIPAddress = New System.Windows.Forms.TextBox()
+        Me.btnPSKillProcess = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpNetwork.SuspendLayout()
         Me.tpPSTools.SuspendLayout()
@@ -151,6 +152,7 @@ Partial Class frmISTTools
         'tpPSTools
         '
         Me.tpPSTools.BackColor = System.Drawing.SystemColors.Control
+        Me.tpPSTools.Controls.Add(Me.btnPSKillProcess)
         Me.tpPSTools.Controls.Add(Me.btnPSExec)
         Me.tpPSTools.Controls.Add(Me.btnRemoteInfo)
         Me.tpPSTools.Controls.Add(Me.btnPSToolsClose)
@@ -305,6 +307,17 @@ Partial Class frmISTTools
         Me.txtIPAddress.Size = New System.Drawing.Size(230, 20)
         Me.txtIPAddress.TabIndex = 0
         '
+        'btnPSKillProcess
+        '
+        Me.btnPSKillProcess.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnPSKillProcess.Location = New System.Drawing.Point(7, 155)
+        Me.btnPSKillProcess.Name = "btnPSKillProcess"
+        Me.btnPSKillProcess.Size = New System.Drawing.Size(272, 23)
+        Me.btnPSKillProcess.TabIndex = 6
+        Me.btnPSKillProcess.Text = "Kill remote process"
+        Me.btnPSKillProcess.UseVisualStyleBackColor = True
+        '
         'frmISTTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -347,5 +360,6 @@ Partial Class frmISTTools
     Friend WithEvents btnAbout As System.Windows.Forms.Button
     Friend WithEvents btnRemotePush As System.Windows.Forms.Button
     Friend WithEvents btnPSExec As System.Windows.Forms.Button
+    Friend WithEvents btnPSKillProcess As System.Windows.Forms.Button
 
 End Class

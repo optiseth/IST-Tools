@@ -182,4 +182,13 @@
             frmPSExec.Show()
         End If
     End Sub
+
+    Private Sub btnPSKillProcess_Click(sender As System.Object, e As System.EventArgs) Handles btnPSKillProcess.Click
+        If txtIPAddress.Text = "" Then
+            MessageBox.Show("Please enter an IP address or host name!", "Error", MessageBoxButtons.OK, _
+                            MessageBoxIcon.Warning)
+        Else
+            frmPSKill.show()
+        End If
+    End Sub
 End Class
