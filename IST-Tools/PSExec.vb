@@ -40,15 +40,25 @@
                 'Save IP file path
                 strIPListName = OpenFileDialog2.FileName
                 strSafeIPListName = OpenFileDialog2.SafeFileName
-                My.Computer.FileSystem.CopyFile(strIPListName, "C:\Program Files (x86)\IST-Tools\PSTools\" & _
-                                                strSafeIPListName)
+
+                'Copy IP list.txt to C:\temp. Create C:\temp if necessary.
+                If My.Computer.FileSystem.DirectoryExists("C:\temp") Then
+                    If My.Computer.FileSystem.FileExists("C:\temp\" & strSafeIPListName) Then
+                        My.Computer.FileSystem.DeleteFile("C:\temp\" & strSafeIPListName)
+                    Else
+                        My.Computer.FileSystem.CopyFile(strIPListName, "C:\temp\" & _
+                                                        strSafeIPListName)
+                    End If
+                Else
+                    My.Computer.FileSystem.CreateDirectory("C:\temp")
+                    My.Computer.FileSystem.CopyFile(strIPListName, "C:\temp\" & strSafeIPListName)
+                End If
 
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
-
             'Load the text file contents into the strFileContents string variable
-            strFileContents = My.Computer.FileSystem.ReadAllText(strIPListName)
+            strFileContents = My.Computer.FileSystem.ReadAllText("C:\temp\" & strSafeIPListName)
 
             'Load text file contents into the text box
             'This currently only loads the file for viewing, not for editing
@@ -64,7 +74,7 @@
         Dim strArgs1 As String = " \\" & frmISTTools.txtIPAddress.Text & " -s msiexec.exe /i " & _
             Chr(34) & strFileName & Chr(34) & " /q" & Chr(34)
         Dim strSingleArgs As String = strPSExec & strArgs1
-        Dim strArgs2 As String = " @" & strSafeIPListName & " -s msiexec.exe /i " & _
+        Dim strArgs2 As String = " @C:\temp\" & strSafeIPListName & " -s msiexec.exe /i " & _
             Chr(34) & strFileName & Chr(34) & " /q" & Chr(34)
         Dim strMultiArgs As String = strPSExec & strArgs2
 
@@ -74,11 +84,9 @@
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
-        ElseIf rdbMultiplePCs.Checked And strIPListName <> "" Then
+        ElseIf rdbMultiplePCs.Checked And strIPListName <> "" And strSafeIPListName <> "" Then
             Try
                 Process.Start(strCMDPath, strMultiArgs)
-                'MessageBox.Show(strMultiArgs, "Test")
-                My.Computer.FileSystem.DeleteFile("C:\Program Files (x86)\IST-Tools\PSTools\" & strSafeIPListName)
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -89,6 +97,14 @@
     End Sub
 
     Private Sub rdbSinglePC_Click(sender As Object, e As System.EventArgs) Handles rdbSinglePC.Click
+        'Sets the text box to display the single IP address when checked
         txtIPList.Text = frmISTTools.txtIPAddress.Text
+    End Sub
+
+    Private Sub frmPSExec_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        'Removes the temporary text file from C:\temp on exit.
+        If My.Computer.FileSystem.FileExists("C:\temp\" & strSafeIPListName) Then
+            My.Computer.FileSystem.DeleteFile("C:\temp\" & strSafeIPListName)
+        End If
     End Sub
 End Class
