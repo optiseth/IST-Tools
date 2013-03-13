@@ -81,7 +81,6 @@
     <Compile Include="AboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IPStatus.vb" />
     <Compile Include="IST-Tools.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +115,12 @@
     <Compile Include="PSKill.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="RemotePCInfo.Designer.vb">
+      <DependentUpon>RemotePCInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RemotePCInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="RemotePush.Designer.vb">
       <DependentUpon>RemotePush.vb</DependentUpon>
     </Compile>
@@ -147,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PSKill.resx">
       <DependentUpon>PSKill.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemotePCInfo.resx">
+      <DependentUpon>RemotePCInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RemotePush.resx">
       <DependentUpon>RemotePush.vb</DependentUpon>

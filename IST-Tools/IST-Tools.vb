@@ -9,9 +9,14 @@
     End Sub
 
     Private Sub btnEditHostsFile_Click(sender As System.Object, e As System.EventArgs) Handles btnEditHostsFile.Click
-        'Set paths
-        Dim strHostsPath As String = "\\" & txtIPAddress.Text & "\c$\Windows\system32\drivers\etc\hosts"
-        Dim strNotepadPath As String = "C:\Windows\system32\notepad.exe"
+        'Set process info
+        Dim procEditHosts As ProcessStartInfo
+        procEditHosts = New ProcessStartInfo
+        With procEditHosts
+            .WorkingDirectory = "C:\Windows\System32"
+            .FileName = "notepad.exe"
+            .Arguments = "\\" & txtIPAddress.Text & "\c$\Windows\System32\drivers\etc\hosts"
+        End With
 
         'Attempt to open remote hosts file using notepad
         If txtIPAddress.Text = "" Then
@@ -19,7 +24,7 @@
                             MessageBoxIcon.Warning)
         Else
             Try
-                Process.Start(strNotepadPath, strHostsPath)
+                Process.Start(procEditHosts)
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -64,9 +69,15 @@
     End Sub
 
     Private Sub btnContinuousPing_Click(sender As System.Object, e As System.EventArgs) Handles btnContinuousPing.Click
-        'Set paths
-        Dim strCMDPath As String = "C:\Windows\system32\cmd.exe"
-        Dim strArgs As String = " /k ping -t " & txtIPAddress.Text
+        'Set process info
+        Dim CMDProc As Diagnostics.ProcessStartInfo
+        CMDProc = New Diagnostics.ProcessStartInfo
+        With CMDProc
+            .WorkingDirectory = "C:\Windows\System32"
+            .FileName = "ping.exe"
+            .UseShellExecute = True
+            .Arguments = "-t " & txtIPAddress.Text
+        End With
 
         'Continuous ping on the remote PC
         If txtIPAddress.Text = "" Then
@@ -74,7 +85,7 @@
                             MessageBoxIcon.Warning)
         Else
             Try
-                Process.Start(strCMDPath, strArgs)
+                Process.Start(CMDProc)
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -82,9 +93,23 @@
     End Sub
 
     Private Sub btnLaunchVNCViewer_Click(sender As System.Object, e As System.EventArgs) Handles btnLaunchVNCViewer.Click
-        'Set paths
-        Dim strVNCPathV4 As String = "C:\Program Files\RealVNC\VNC4\vncviewer.exe"
-        Dim strVNCPathV5 As String = "C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe"
+        'Set process info for VNC4
+        Dim procVNC4 As ProcessStartInfo
+        procVNC4 = New ProcessStartInfo
+        With procVNC4
+            .WorkingDirectory = "C:\Program Files\RealVNC\VNC4"
+            .FileName = "vncviewer.exe"
+            .Arguments = txtIPAddress.Text
+        End With
+
+        'Set process info for VNC5
+        Dim procVNC5 As ProcessStartInfo
+        procVNC5 = New ProcessStartInfo
+        With procVNC5
+            .WorkingDirectory = "C:\Program Files\RealVNC\VNC Viewer"
+            .FileName = "vncviewer.exe"
+            .Arguments = txtIPAddress.Text
+        End With
 
         If My.Computer.FileSystem.DirectoryExists("C:\Program Files\RealVNC\VNC Viewer") Then
             If txtIPAddress.Text = "" Then
@@ -92,7 +117,7 @@
                                 MessageBoxIcon.Warning)
             Else
                 Try
-                    Process.Start(strVNCPathV5, txtIPAddress.Text)
+                    Process.Start(procVNC5)
                 Catch ex As Exception
                     Throw New Exception(ex.Message)
                 End Try
@@ -103,7 +128,7 @@
                                 MessageBoxIcon.Warning)
             Else
                 Try
-                    Process.Start(strVNCPathV4, txtIPAddress.Text)
+                    Process.Start(procVNC4)
                 Catch ex As Exception
                     Throw New Exception(ex.Message)
                 End Try
