@@ -193,4 +193,12 @@
     Private Sub frmRemoteService_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         cmbServices.SelectedIndex = 0
     End Sub
+
+    Private Sub cmbServices_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbServices.SelectedIndexChanged
+        If cmbServices.SelectedIndex = 4 Then
+            txtCustomProcess.Enabled = True
+        Else
+            txtCustomProcess.Enabled = False
+        End If
+    End Sub
 End Class
