@@ -5,6 +5,11 @@
         Dim strPSServicePath As String = "C:\Program Files (x86)\IST-Tools\PSTools\psservice.exe"
         Dim intService As Integer = cmbServices.SelectedIndex
 
+        'Set variables for custom service
+        Dim strCustomService = txtCustomProcess.Text
+        Dim strCustomArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & strCustomService & Chr(34)
+        Dim strCustomArgsStop As String = "\\" & strIPAddress & " stop " & Chr(34) & strCustomService & Chr(34)
+
         'Set variables for VNC4 Services
         Dim strVNC4ArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & "WinVNC4" & Chr(34)
         Dim strVNC4ArgsStop As String = "\\" & strIPAddress & " stop " & Chr(34) & "WinVNC4" & Chr(34)
@@ -155,6 +160,29 @@
                 Else
                     MessageBox.Show("Please select ""Start"", ""Stop"", or ""Restart""", "Error", MessageBoxButtons.OK, _
                                     MessageBoxIcon.Warning)
+                End If
+            Case 4
+                If rdbStart.Checked Then
+                    Try
+                        Process.Start(strPSServicePath, strCustomArgsStart)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
+                ElseIf rdbStop.Checked Then
+                    Try
+                        Process.Start(strPSServicePath, strCustomArgsStop)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
+                ElseIf rdbRestart.Checked Then
+                    Try
+                        Process.Start(strPSServicePath, strCustomArgsStop)
+                        'Pause
+                        System.Threading.Thread.Sleep(5000)
+                        Process.Start(strPSServicePath, strCustomArgsStart)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
                 End If
             Case Else
                 MessageBox.Show("No service specified", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)

@@ -29,13 +29,15 @@ Partial Class frmRemoteService
         Me.rdbStop = New System.Windows.Forms.RadioButton()
         Me.rdbRestart = New System.Windows.Forms.RadioButton()
         Me.btnExecute = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtCustomProcess = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'cmbServices
         '
         Me.cmbServices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbServices.FormattingEnabled = True
-        Me.cmbServices.Items.AddRange(New Object() {"VNC", "Remote Registry", "Windows Firewall", "Print Spooler"})
+        Me.cmbServices.Items.AddRange(New Object() {"VNC", "Remote Registry", "Windows Firewall", "Print Spooler", "Custom"})
         Me.cmbServices.Location = New System.Drawing.Point(16, 39)
         Me.cmbServices.Name = "cmbServices"
         Me.cmbServices.Size = New System.Drawing.Size(185, 21)
@@ -53,7 +55,7 @@ Partial Class frmRemoteService
         'rdbStart
         '
         Me.rdbStart.AutoSize = True
-        Me.rdbStart.Location = New System.Drawing.Point(16, 67)
+        Me.rdbStart.Location = New System.Drawing.Point(16, 132)
         Me.rdbStart.Name = "rdbStart"
         Me.rdbStart.Size = New System.Drawing.Size(47, 17)
         Me.rdbStart.TabIndex = 2
@@ -64,7 +66,7 @@ Partial Class frmRemoteService
         'rdbStop
         '
         Me.rdbStop.AutoSize = True
-        Me.rdbStop.Location = New System.Drawing.Point(85, 66)
+        Me.rdbStop.Location = New System.Drawing.Point(85, 132)
         Me.rdbStop.Name = "rdbStop"
         Me.rdbStop.Size = New System.Drawing.Size(47, 17)
         Me.rdbStop.TabIndex = 3
@@ -75,7 +77,7 @@ Partial Class frmRemoteService
         'rdbRestart
         '
         Me.rdbRestart.AutoSize = True
-        Me.rdbRestart.Location = New System.Drawing.Point(142, 67)
+        Me.rdbRestart.Location = New System.Drawing.Point(142, 132)
         Me.rdbRestart.Name = "rdbRestart"
         Me.rdbRestart.Size = New System.Drawing.Size(59, 17)
         Me.rdbRestart.TabIndex = 4
@@ -85,18 +87,37 @@ Partial Class frmRemoteService
         '
         'btnExecute
         '
-        Me.btnExecute.Location = New System.Drawing.Point(70, 113)
+        Me.btnExecute.Location = New System.Drawing.Point(69, 155)
         Me.btnExecute.Name = "btnExecute"
         Me.btnExecute.Size = New System.Drawing.Size(75, 23)
         Me.btnExecute.TabIndex = 5
         Me.btnExecute.Text = "Execute"
         Me.btnExecute.UseVisualStyleBackColor = True
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(16, 76)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(45, 13)
+        Me.Label2.TabIndex = 6
+        Me.Label2.Text = "Custom:"
+        '
+        'txtCustomProcess
+        '
+        Me.txtCustomProcess.Enabled = False
+        Me.txtCustomProcess.Location = New System.Drawing.Point(69, 73)
+        Me.txtCustomProcess.Name = "txtCustomProcess"
+        Me.txtCustomProcess.Size = New System.Drawing.Size(132, 20)
+        Me.txtCustomProcess.TabIndex = 7
+        '
         'frmRemoteService
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(218, 148)
+        Me.ClientSize = New System.Drawing.Size(218, 190)
+        Me.Controls.Add(Me.txtCustomProcess)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnExecute)
         Me.Controls.Add(Me.rdbRestart)
         Me.Controls.Add(Me.rdbStop)
@@ -118,4 +139,6 @@ Partial Class frmRemoteService
     Friend WithEvents rdbStop As System.Windows.Forms.RadioButton
     Friend WithEvents rdbRestart As System.Windows.Forms.RadioButton
     Friend WithEvents btnExecute As System.Windows.Forms.Button
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtCustomProcess As System.Windows.Forms.TextBox
 End Class
