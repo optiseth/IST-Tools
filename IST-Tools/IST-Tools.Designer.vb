@@ -32,6 +32,7 @@ Partial Class frmISTTools
         Me.btnEditHostsFile = New System.Windows.Forms.Button()
         Me.btnLaunchVNCViewer = New System.Windows.Forms.Button()
         Me.tpPSTools = New System.Windows.Forms.TabPage()
+        Me.btnPSKillProcess = New System.Windows.Forms.Button()
         Me.btnPSExec = New System.Windows.Forms.Button()
         Me.btnRemoteInfo = New System.Windows.Forms.Button()
         Me.btnPSToolsClose = New System.Windows.Forms.Button()
@@ -45,7 +46,6 @@ Partial Class frmISTTools
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.lblIPAddress = New System.Windows.Forms.Label()
         Me.txtIPAddress = New System.Windows.Forms.TextBox()
-        Me.btnPSKillProcess = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpNetwork.SuspendLayout()
         Me.tpPSTools.SuspendLayout()
@@ -166,6 +166,17 @@ Partial Class frmISTTools
         Me.tpPSTools.TabIndex = 1
         Me.tpPSTools.Text = "PSTools"
         Me.tpPSTools.ToolTipText = "Contains the PSTools suite to use against the remote PC."
+        '
+        'btnPSKillProcess
+        '
+        Me.btnPSKillProcess.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnPSKillProcess.Location = New System.Drawing.Point(7, 155)
+        Me.btnPSKillProcess.Name = "btnPSKillProcess"
+        Me.btnPSKillProcess.Size = New System.Drawing.Size(272, 23)
+        Me.btnPSKillProcess.TabIndex = 6
+        Me.btnPSKillProcess.Text = "Kill remote process"
+        Me.btnPSKillProcess.UseVisualStyleBackColor = True
         '
         'btnPSExec
         '
@@ -306,17 +317,6 @@ Partial Class frmISTTools
         Me.txtIPAddress.Name = "txtIPAddress"
         Me.txtIPAddress.Size = New System.Drawing.Size(230, 20)
         Me.txtIPAddress.TabIndex = 0
-        '
-        'btnPSKillProcess
-        '
-        Me.btnPSKillProcess.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnPSKillProcess.Location = New System.Drawing.Point(7, 155)
-        Me.btnPSKillProcess.Name = "btnPSKillProcess"
-        Me.btnPSKillProcess.Size = New System.Drawing.Size(272, 23)
-        Me.btnPSKillProcess.TabIndex = 6
-        Me.btnPSKillProcess.Text = "Kill remote process"
-        Me.btnPSKillProcess.UseVisualStyleBackColor = True
         '
         'frmISTTools
         '

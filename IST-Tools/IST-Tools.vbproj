@@ -115,12 +115,6 @@
     <Compile Include="PSKill.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RemotePCInfo.Designer.vb">
-      <DependentUpon>RemotePCInfo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="RemotePCInfo.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="RemotePush.Designer.vb">
       <DependentUpon>RemotePush.vb</DependentUpon>
     </Compile>
@@ -131,6 +125,12 @@
       <DependentUpon>RemoteService.vb</DependentUpon>
     </Compile>
     <Compile Include="RemoteService.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Results.Designer.vb">
+      <DependentUpon>Results.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Results.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -153,14 +153,14 @@
     <EmbeddedResource Include="PSKill.resx">
       <DependentUpon>PSKill.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RemotePCInfo.resx">
-      <DependentUpon>RemotePCInfo.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="RemotePush.resx">
       <DependentUpon>RemotePush.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RemoteService.resx">
       <DependentUpon>RemoteService.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Results.resx">
+      <DependentUpon>Results.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

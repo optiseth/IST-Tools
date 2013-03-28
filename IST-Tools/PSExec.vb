@@ -107,4 +107,8 @@
             My.Computer.FileSystem.DeleteFile("C:\temp\" & strSafeIPListName)
         End If
     End Sub
+
+    Private Sub frmPSExec_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        rdbSinglePC.Select()
+    End Sub
 End Class

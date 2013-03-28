@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class RemotePCInfo
+Partial Class frmResults
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,44 +22,47 @@ Partial Class RemotePCInfo
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RemotePCInfo))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmResults))
         Me.btnClose = New System.Windows.Forms.Button()
-        Me.txtRemoteInfo = New System.Windows.Forms.TextBox()
+        Me.txtResults = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'btnClose
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.Location = New System.Drawing.Point(391, 278)
+        Me.btnClose.Location = New System.Drawing.Point(432, 278)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
         Me.btnClose.TabIndex = 0
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
-        'txtRemoteInfo
+        'txtResults
         '
-        Me.txtRemoteInfo.Location = New System.Drawing.Point(13, 13)
-        Me.txtRemoteInfo.Multiline = True
-        Me.txtRemoteInfo.Name = "txtRemoteInfo"
-        Me.txtRemoteInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtRemoteInfo.Size = New System.Drawing.Size(453, 259)
-        Me.txtRemoteInfo.TabIndex = 1
+        Me.txtResults.Location = New System.Drawing.Point(13, 13)
+        Me.txtResults.Multiline = True
+        Me.txtResults.Name = "txtResults"
+        Me.txtResults.ReadOnly = True
+        Me.txtResults.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtResults.Size = New System.Drawing.Size(494, 259)
+        Me.txtResults.TabIndex = 1
         '
-        'RemotePCInfo
+        'frmResults
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(478, 313)
-        Me.Controls.Add(Me.txtRemoteInfo)
+        Me.ClientSize = New System.Drawing.Size(519, 313)
+        Me.Controls.Add(Me.txtResults)
         Me.Controls.Add(Me.btnClose)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "RemotePCInfo"
-        Me.Text = "RemotePCInfo"
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "frmResults"
+        Me.Text = "Results"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents txtRemoteInfo As System.Windows.Forms.TextBox
+    Friend WithEvents txtResults As System.Windows.Forms.TextBox
 End Class

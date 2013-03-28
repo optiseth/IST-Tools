@@ -1,5 +1,5 @@
 ﻿Public Class frmISTTools
-
+    Implements System.IDisposable
     Private Sub btnPSToolsClose_Click(sender As System.Object, e As System.EventArgs) Handles btnPSToolsClose.Click
         Me.Close()
     End Sub
@@ -10,8 +10,7 @@
 
     Private Sub btnEditHostsFile_Click(sender As System.Object, e As System.EventArgs) Handles btnEditHostsFile.Click
         'Set process info
-        Dim procEditHosts As ProcessStartInfo
-        procEditHosts = New ProcessStartInfo
+        Dim procEditHosts As New ProcessStartInfo
         With procEditHosts
             .WorkingDirectory = "C:\Windows\System32"
             .FileName = "notepad.exe"
@@ -70,8 +69,7 @@
 
     Private Sub btnContinuousPing_Click(sender As System.Object, e As System.EventArgs) Handles btnContinuousPing.Click
         'Set process info
-        Dim CMDProc As Diagnostics.ProcessStartInfo
-        CMDProc = New Diagnostics.ProcessStartInfo
+        Dim CMDProc As New ProcessStartInfo
         With CMDProc
             .WorkingDirectory = "C:\Windows\System32"
             .FileName = "ping.exe"
@@ -137,15 +135,22 @@
     End Sub
 
     Private Sub btnForcedRemoteRestart_Click(sender As System.Object, e As System.EventArgs) Handles btnForcedRemoteRestart.Click
-        Dim strPSShutdownPath As String = "C:\Program Files (x86)\IST-Tools\PSTools\psshutdown.exe"
-        Dim strArgs As String = "\\" & txtIPAddress.Text & " /r /t 15 /f"
+        'Dim strPSShutdownPath As String = "C:\Program Files (x86)\IST-Tools\PSTools\psshutdown.exe"
+        'Dim strArgs As String = "\\" & txtIPAddress.Text & " /r /t 15 /f"
+
+        Dim procForcedRestart As New ProcessStartInfo
+        With procForcedRestart
+            .WorkingDirectory = "C:\Program Files (x86)\IST-Tools\PSTools"
+            .FileName = "psshutdown.exe"
+            .Arguments = "\\" & txtIPAddress.Text & " /r /t 15 /f"
+        End With
 
         If txtIPAddress.Text = "" Then
             MessageBox.Show("Please enter an IP address or host name!", "Error", MessageBoxButtons.OK, _
                             MessageBoxIcon.Warning)
         Else
             Try
-                Process.Start(strPSShutdownPath, strArgs)
+                Process.Start(procForcedRestart)
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -158,7 +163,7 @@
             MessageBox.Show("Please enter an IP address or host name!", "Error", MessageBoxButtons.OK, _
                             MessageBoxIcon.Warning)
         Else
-            frmRemoteService.Show(txtIPAddress)
+            frmRemoteService.Show()
         End If
     End Sub
 
@@ -166,22 +171,72 @@
         'Set Paths
         Dim strCMDPath As String = "C:\Windows\System32\cmd.exe"
         Dim strPSInfoPath As String = " /k " & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psinfo.exe" & Chr(34)
-        Dim strRemotePC As String = " /s " & "\\" & txtIPAddress.Text
+        Dim strRemotePC As String = " /s " & "\\" & txtIPAddress.Text & " > " & "C:\temp\psinfo.txt"
         Dim strArgs As String = strPSInfoPath & strRemotePC
+        Dim strResults As String
+        Dim procResults As New Process
+        Dim isNotFinished As Boolean = True
+
+        Dim procRemoteInfo As New ProcessStartInfo
+        With procRemoteInfo
+            .WorkingDirectory = "C:\Windows\System32"
+            .FileName = "cmd.exe"
+            .Arguments = strArgs
+            .WindowStyle = ProcessWindowStyle.Hidden
+        End With
 
         'Run psinfo against remote PC to display PC info and installed software
         If txtIPAddress.Text = "" Then
             MessageBox.Show("Please enter an IP address or host name!", "Error", MessageBoxButtons.OK, _
                             MessageBoxIcon.Warning)
         Else
+            'Delete psinfo.txt if it already exists
+            If My.Computer.FileSystem.FileExists("C:\temp\psinfo.txt") Then
+                My.Computer.FileSystem.DeleteFile("C:\temp\psinfo.txt")
+            End If
             Try
-                Process.Start(strCMDPath, strArgs)
+                'Start process
+                procResults = Process.Start(procRemoteInfo)
+                'Check to see if process is still running
+                While isNotFinished = True
+                    btnRemoteInfo.Text = "This takes a few seconds..."
+                    btnRemoteInfo.Refresh()
+                    Threading.Thread.Sleep(1000)
+                    If isProcessRunning("PsInfo") = True Then
+                        isNotFinished = True
+                    Else
+                        isNotFinished = False
+                    End If
+                End While
+                btnRemoteInfo.Text = "Display Remote PC Info"
+                btnRemoteInfo.Refresh()
+
+                    'Load info into new window
+                    strResults = My.Computer.FileSystem.ReadAllText("C:\temp\psinfo.txt")
+                    frmResults.txtResults.Text = strResults
+                    frmResults.Show()
+                    procResults.Close()
+                    If My.Computer.FileSystem.FileExists("C:\temp\psinfo.txt") Then
+                        My.Computer.FileSystem.DeleteFile("C:\temp\psinfo.txt")
+
+                    End If
             Catch ex As Exception
+                procResults.Kill()
                 Throw New Exception(ex.Message)
             End Try
         End If
     End Sub
-
+    Public Function isProcessRunning(name As String) As Boolean
+        'Get a list of running processes
+        For Each clsProcess As Process In Process.GetProcesses
+            If clsProcess.ProcessName.StartsWith(name) Then
+                'Process is still running
+                Return True
+            End If
+        Next
+        'Process is done
+        Return False
+    End Function
     Private Sub btnAbout_Click(sender As System.Object, e As System.EventArgs) Handles btnAbout.Click
         AboutBox.Show()
     End Sub
@@ -213,7 +268,7 @@
             MessageBox.Show("Please enter an IP address or host name!", "Error", MessageBoxButtons.OK, _
                             MessageBoxIcon.Warning)
         Else
-            frmPSKill.show()
+            frmPSKill.Show()
         End If
     End Sub
 End Class
