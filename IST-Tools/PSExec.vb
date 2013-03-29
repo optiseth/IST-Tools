@@ -11,7 +11,7 @@
 
     Private Sub btnSelectFile_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectFile.Click
         With OpenFileDialog1
-            .Filter = "MSI Files (*.msi)|*.msi|Exe Files (*.exe)|*.exe|Batch Files (*.bat)|*.bat|Reg Files (*.reg)|*.reg|All Files (*.*)|*.*"
+            .Filter = "MSI Files (*.msi)|*.msi|Batch Files (*.bat)|*.bat|All Files (*.*)|*.*"
             .FilterIndex = 1
             .Title = "File to Execute"
         End With

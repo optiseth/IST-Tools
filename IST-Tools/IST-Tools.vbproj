@@ -81,6 +81,7 @@
     <Compile Include="AboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Functions.vb" />
     <Compile Include="IST-Tools.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -176,11 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConnectionManager.ico" />
-    <Content Include="PSTools\PsExec.exe" />
-    <Content Include="PSTools\PsInfo.exe" />
-    <Content Include="PSTools\PsLoggedon.exe" />
-    <Content Include="PSTools\PsService.exe" />
-    <Content Include="PSTools\psshutdown.exe" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -1,5 +1,4 @@
 ﻿Public Class frmISTTools
-    Implements System.IDisposable
     Private Sub btnPSToolsClose_Click(sender As System.Object, e As System.EventArgs) Handles btnPSToolsClose.Click
         Me.Close()
     End Sub
@@ -51,29 +50,77 @@
         'Set paths
         Dim strCMDPath As String = "C:\Windows\system32\cmd.exe"
         Dim strPSLoggedOnPath As String = " /k " & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psloggedon.exe" & Chr(34)
-        Dim strRemotePC As String = " \\" & txtIPAddress.Text
+        Dim strRemotePC As String = " \\" & txtIPAddress.Text & " > C:\temp\psloggedon.txt"
         Dim strArgs As String = strPSLoggedOnPath & strRemotePC
+        Dim procLoggedOnUser As New ProcessStartInfo
+        Dim procResults As Process
+        Dim strResults As String
+        Dim isNotFinished As Boolean = True
 
+        With procLoggedOnUser
+            .WorkingDirectory = "C:\Windows\System32"
+            .FileName = "cmd.exe"
+            .Arguments = strArgs
+            .WindowStyle = ProcessWindowStyle.Hidden
+        End With
         'Attempt to launch cmd.exe to run psloggedon against remote PC
         If txtIPAddress.Text = "" Then
             MessageBox.Show("Please enter and IP address or host name!", "Error", MessageBoxButtons.OK, _
                             MessageBoxIcon.Warning)
         Else
             Try
-                Process.Start(strCMDPath, strArgs)
+                'Check to see if C:\temp exists. If not, create it.
+                If tempCheck() = False Then
+                    My.Computer.FileSystem.CreateDirectory("C:\temp")
+                End If
+
+                'Check to see if psloggedon.txt exists and delete
+                If My.Computer.FileSystem.FileExists("C:\temp\psloggedon.txt") Then
+                    My.Computer.FileSystem.DeleteFile("C:\temp\psloggedon.txt")
+                End If
+
+                procResults = Process.Start(procLoggedOnUser)
+
+                'Check to see if process is still running
+                While isNotFinished = True
+                    Threading.Thread.Sleep(1000)
+                    If isProcessRunning("psloggedon") = True Then
+                        isNotFinished = True
+                    Else
+                        isNotFinished = False
+                    End If
+                End While
+
+                'Check to see if psloggedon.txt is still in use
+                While FileInUse("psloggedon.txt") = True
+                    Threading.Thread.Sleep(1000)
+                End While
+
+                'If text file exists, load it into results form and show
+                If My.Computer.FileSystem.FileExists("C:\temp\psloggedon.txt") Then
+                    strResults = My.Computer.FileSystem.ReadAllText("C:\temp\psloggedon.txt")
+                    frmResults.txtResults.Text = strResults
+                    frmResults.Show()
+                    procResults.Dispose()
+                End If
+
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
+
+            'Delete psloggedon.txt
+            If My.Computer.FileSystem.FileExists("C:\temp\psloggedon.txt") Then
+                My.Computer.FileSystem.DeleteFile("C:\temp\psloggedon.txt")
+            End If
         End If
     End Sub
 
     Private Sub btnContinuousPing_Click(sender As System.Object, e As System.EventArgs) Handles btnContinuousPing.Click
         'Set process info
-        Dim CMDProc As New ProcessStartInfo
-        With CMDProc
+        Dim procPing As New ProcessStartInfo
+        With procPing
             .WorkingDirectory = "C:\Windows\System32"
             .FileName = "ping.exe"
-            .UseShellExecute = True
             .Arguments = "-t " & txtIPAddress.Text
         End With
 
@@ -83,7 +130,7 @@
                             MessageBoxIcon.Warning)
         Else
             Try
-                Process.Start(CMDProc)
+                Process.Start(procPing)
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -92,8 +139,7 @@
 
     Private Sub btnLaunchVNCViewer_Click(sender As System.Object, e As System.EventArgs) Handles btnLaunchVNCViewer.Click
         'Set process info for VNC4
-        Dim procVNC4 As ProcessStartInfo
-        procVNC4 = New ProcessStartInfo
+        Dim procVNC4 As New ProcessStartInfo
         With procVNC4
             .WorkingDirectory = "C:\Program Files\RealVNC\VNC4"
             .FileName = "vncviewer.exe"
@@ -101,8 +147,7 @@
         End With
 
         'Set process info for VNC5
-        Dim procVNC5 As ProcessStartInfo
-        procVNC5 = New ProcessStartInfo
+        Dim procVNC5 As New ProcessStartInfo
         With procVNC5
             .WorkingDirectory = "C:\Program Files\RealVNC\VNC Viewer"
             .FileName = "vncviewer.exe"
@@ -135,14 +180,13 @@
     End Sub
 
     Private Sub btnForcedRemoteRestart_Click(sender As System.Object, e As System.EventArgs) Handles btnForcedRemoteRestart.Click
-        'Dim strPSShutdownPath As String = "C:\Program Files (x86)\IST-Tools\PSTools\psshutdown.exe"
-        'Dim strArgs As String = "\\" & txtIPAddress.Text & " /r /t 15 /f"
-
+        'Force a restart on remote PC. User is givin a warning that the PC will restart in less than 1 minute.
         Dim procForcedRestart As New ProcessStartInfo
         With procForcedRestart
             .WorkingDirectory = "C:\Program Files (x86)\IST-Tools\PSTools"
             .FileName = "psshutdown.exe"
             .Arguments = "\\" & txtIPAddress.Text & " /r /t 15 /f"
+            .WindowStyle = ProcessWindowStyle.Hidden
         End With
 
         If txtIPAddress.Text = "" Then
@@ -168,11 +212,9 @@
     End Sub
 
     Private Sub btnRemoteInfo_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoteInfo.Click
-        'Set Paths
-        Dim strCMDPath As String = "C:\Windows\System32\cmd.exe"
-        Dim strPSInfoPath As String = " /k " & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psinfo.exe" & Chr(34)
-        Dim strRemotePC As String = " /s " & "\\" & txtIPAddress.Text & " > " & "C:\temp\psinfo.txt"
-        Dim strArgs As String = strPSInfoPath & strRemotePC
+        'Set arguments string
+        Dim strArgs As String = " /k " & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psinfo.exe" & Chr(34) & _
+                                " /s " & "\\" & txtIPAddress.Text & " > C:\temp\psinfo.txt"
         Dim strResults As String
         Dim procResults As New Process
         Dim isNotFinished As Boolean = True
@@ -197,9 +239,10 @@
             Try
                 'Start process
                 procResults = Process.Start(procRemoteInfo)
+
                 'Check to see if process is still running
                 While isNotFinished = True
-                    btnRemoteInfo.Text = "This takes a few seconds..."
+                    btnRemoteInfo.Text = "This takes approx. 15 seconds..."
                     btnRemoteInfo.Refresh()
                     Threading.Thread.Sleep(1000)
                     If isProcessRunning("PsInfo") = True Then
@@ -211,32 +254,20 @@
                 btnRemoteInfo.Text = "Display Remote PC Info"
                 btnRemoteInfo.Refresh()
 
-                    'Load info into new window
+                'Load info into new window
+                If My.Computer.FileSystem.FileExists("C:\temp\psinfo.txt") Then
                     strResults = My.Computer.FileSystem.ReadAllText("C:\temp\psinfo.txt")
                     frmResults.txtResults.Text = strResults
                     frmResults.Show()
-                    procResults.Close()
-                    If My.Computer.FileSystem.FileExists("C:\temp\psinfo.txt") Then
-                        My.Computer.FileSystem.DeleteFile("C:\temp\psinfo.txt")
+                    procResults.Dispose()
+                    My.Computer.FileSystem.DeleteFile("C:\temp\psinfo.txt")
+                End If
 
-                    End If
             Catch ex As Exception
-                procResults.Kill()
                 Throw New Exception(ex.Message)
             End Try
         End If
     End Sub
-    Public Function isProcessRunning(name As String) As Boolean
-        'Get a list of running processes
-        For Each clsProcess As Process In Process.GetProcesses
-            If clsProcess.ProcessName.StartsWith(name) Then
-                'Process is still running
-                Return True
-            End If
-        Next
-        'Process is done
-        Return False
-    End Function
     Private Sub btnAbout_Click(sender As System.Object, e As System.EventArgs) Handles btnAbout.Click
         AboutBox.Show()
     End Sub
