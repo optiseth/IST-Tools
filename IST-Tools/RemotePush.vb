@@ -27,7 +27,7 @@
         End If
     End Sub
 
-    Private Sub btnCancel_Click(sender As System.Object, e As System.EventArgs) Handles btnCancel.Click
+    Private Sub btnClose_Click(sender As System.Object, e As System.EventArgs) Handles btnClose.Click
         Me.Close()
     End Sub
 
@@ -41,6 +41,7 @@
         If My.Computer.FileSystem.DirectoryExists(strDirectoryExistsArgs) Then
             Try
                 My.Computer.FileSystem.CopyFile(strFileName, strArgs, FileIO.UIOption.AllDialogs)
+                Me.Close()
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -48,6 +49,7 @@
             My.Computer.FileSystem.CreateDirectory(strCreateDirectory)
             Try
                 My.Computer.FileSystem.CopyFile(strFileName, strArgs, FileIO.UIOption.AllDialogs)
+                Me.Close()
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try

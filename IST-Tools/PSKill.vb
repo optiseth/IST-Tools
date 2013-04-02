@@ -23,11 +23,6 @@
             .WindowStyle = ProcessWindowStyle.Hidden
         End With
 
-        'Check to see if C:\temp exists. If not, create it.
-        If tempCheck() = False Then
-            My.Computer.FileSystem.CreateDirectory("C:\temp")
-        End If
-
         Try
             Process.Start(procPSList)
             Threading.Thread.Sleep(500)
@@ -54,7 +49,8 @@
 
 
         Catch ex As Exception
-            MessageBox.Show(ex.ToString, "Error")
+            Throw New Exception(ex.Message)
+            KillCMDProcess()
         End Try
     End Sub
 

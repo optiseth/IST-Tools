@@ -10,13 +10,11 @@
         Return False
     End Function
 
-    Public Function tempCheck() As Boolean
-        If My.Computer.FileSystem.DirectoryExists("C:\temp") Then
-            Return True
-        Else
-            Return False
+    Public Sub TempCheck()
+        If Not My.Computer.FileSystem.DirectoryExists("C:\temp") Then
+            My.Computer.FileSystem.CreateDirectory("C:\temp")
         End If
-    End Function
+    End Sub
 
     Public Function FileInUse(ByVal File As String) As Boolean
         Dim thisFileInUse As Boolean = False
@@ -37,5 +35,13 @@
         If My.Computer.FileSystem.FileExists("C:\temp\" & name) Then
             My.Computer.FileSystem.DeleteFile("C:\temp\" & name)
         End If
+    End Sub
+
+    Public Sub KillCMDProcess()
+        For Each clsProcess As Process In Process.GetProcesses
+            If clsProcess.ProcessName.StartsWith("cmd") Then
+                clsProcess.Kill()
+            End If
+        Next
     End Sub
 End Module

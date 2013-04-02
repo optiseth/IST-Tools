@@ -25,7 +25,7 @@ Partial Class frmRemotePush
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRemotePush))
         Me.btnSelectFile = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.btnClose = New System.Windows.Forms.Button()
         Me.lblPath = New System.Windows.Forms.Label()
         Me.btnPushFile = New System.Windows.Forms.Button()
         Me.SuspendLayout()
@@ -45,16 +45,16 @@ Partial Class frmRemotePush
         '
         Me.OpenFileDialog1.Multiselect = True
         '
-        'btnCancel
+        'btnClose
         '
-        Me.btnCancel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.btnClose.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(67, 119)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 1
-        Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.UseVisualStyleBackColor = True
+        Me.btnClose.Location = New System.Drawing.Point(67, 119)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(75, 23)
+        Me.btnClose.TabIndex = 1
+        Me.btnClose.Text = "Close"
+        Me.btnClose.UseVisualStyleBackColor = True
         '
         'lblPath
         '
@@ -82,7 +82,7 @@ Partial Class frmRemotePush
         Me.ClientSize = New System.Drawing.Size(209, 154)
         Me.Controls.Add(Me.btnPushFile)
         Me.Controls.Add(Me.lblPath)
-        Me.Controls.Add(Me.btnCancel)
+        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnSelectFile)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -95,7 +95,7 @@ Partial Class frmRemotePush
     End Sub
     Friend WithEvents btnSelectFile As System.Windows.Forms.Button
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
-    Friend WithEvents btnCancel As System.Windows.Forms.Button
+    Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents lblPath As System.Windows.Forms.Label
     Friend WithEvents btnPushFile As System.Windows.Forms.Button
 End Class

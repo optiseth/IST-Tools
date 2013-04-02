@@ -10,6 +10,6 @@
     End Sub
 
     Private Sub frmResults_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        txtResults.Focus()
+        Me.Focus()
     End Sub
 End Class

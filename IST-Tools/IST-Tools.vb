@@ -10,6 +10,7 @@
     Private Sub btnEditHostsFile_Click(sender As System.Object, e As System.EventArgs) Handles btnEditHostsFile.Click
         'Set process info
         Dim procEditHosts As New ProcessStartInfo
+        Dim procResults As Process
         With procEditHosts
             .WorkingDirectory = "C:\Windows\System32"
             .FileName = "notepad.exe"
@@ -22,7 +23,8 @@
                             MessageBoxIcon.Warning)
         Else
             Try
-                Process.Start(procEditHosts)
+                procResults = Process.Start(procEditHosts)
+                procResults.Dispose()
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -47,11 +49,9 @@
     End Sub
 
     Private Sub btnLoggedOnUser_Click(sender As System.Object, e As System.EventArgs) Handles btnLoggedOnUser.Click
-        'Set paths
-        Dim strCMDPath As String = "C:\Windows\system32\cmd.exe"
-        Dim strPSLoggedOnPath As String = " /k " & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psloggedon.exe" & Chr(34)
-        Dim strRemotePC As String = " \\" & txtIPAddress.Text & " > C:\temp\psloggedon.txt"
-        Dim strArgs As String = strPSLoggedOnPath & strRemotePC
+        'Set variables
+        Dim strArgs As String = " /k " & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psloggedon.exe" & Chr(34) & _
+                                " \\" & txtIPAddress.Text & " > C:\temp\psloggedon.txt"
         Dim procLoggedOnUser As New ProcessStartInfo
         Dim procResults As Process
         Dim strResults As String
@@ -69,11 +69,6 @@
                             MessageBoxIcon.Warning)
         Else
             Try
-                'Check to see if C:\temp exists. If not, create it.
-                If tempCheck() = False Then
-                    My.Computer.FileSystem.CreateDirectory("C:\temp")
-                End If
-
                 'Check to see if psloggedon.txt exists and delete
                 If My.Computer.FileSystem.FileExists("C:\temp\psloggedon.txt") Then
                     My.Computer.FileSystem.DeleteFile("C:\temp\psloggedon.txt")
@@ -118,6 +113,7 @@
     Private Sub btnContinuousPing_Click(sender As System.Object, e As System.EventArgs) Handles btnContinuousPing.Click
         'Set process info
         Dim procPing As New ProcessStartInfo
+        Dim procResulsts As Process
         With procPing
             .WorkingDirectory = "C:\Windows\System32"
             .FileName = "ping.exe"
@@ -130,7 +126,8 @@
                             MessageBoxIcon.Warning)
         Else
             Try
-                Process.Start(procPing)
+                procResulsts = Process.Start(procPing)
+                procResulsts.Dispose()
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -242,7 +239,7 @@
 
                 'Check to see if process is still running
                 While isNotFinished = True
-                    btnRemoteInfo.Text = "This takes approx. 15 seconds..."
+                    btnRemoteInfo.Text = "This takes approx. 30-60 seconds..."
                     btnRemoteInfo.Refresh()
                     Threading.Thread.Sleep(1000)
                     If isProcessRunning("PsInfo") = True Then
@@ -265,6 +262,7 @@
 
             Catch ex As Exception
                 Throw New Exception(ex.Message)
+                KillCMDProcess()
             End Try
         End If
     End Sub
@@ -301,5 +299,9 @@
         Else
             frmPSKill.Show()
         End If
+    End Sub
+
+    Private Sub frmISTTools_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        tempCheck()
     End Sub
 End Class
