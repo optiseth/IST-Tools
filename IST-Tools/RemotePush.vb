@@ -2,10 +2,6 @@
     Public strFileName As String
     Public strSafeFileName As String
 
-    Private Sub OpenFileDialog1_FileOk(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog1.FileOk
-
-    End Sub
-
     Private Sub btnSelectFile_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectFile.Click
         'Set the OpenDialog properties
         With OpenFileDialog1
@@ -46,8 +42,8 @@
                 Throw New Exception(ex.Message)
             End Try
         Else
-            My.Computer.FileSystem.CreateDirectory(strCreateDirectory)
             Try
+                My.Computer.FileSystem.CreateDirectory(strCreateDirectory)
                 My.Computer.FileSystem.CopyFile(strFileName, strArgs, FileIO.UIOption.AllDialogs)
                 Me.Close()
             Catch ex As Exception

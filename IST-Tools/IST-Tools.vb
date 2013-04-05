@@ -25,6 +25,7 @@
             Try
                 procResults = Process.Start(procEditHosts)
                 procResults.Dispose()
+                procEditHosts = Nothing
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -42,6 +43,7 @@
         Else
             Try
                 Process.Start(strRootPath)
+                strRootPath = Nothing
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -97,6 +99,8 @@
                     frmResults.txtResults.Text = strResults
                     frmResults.Show()
                     procResults.Dispose()
+                    procLoggedOnUser = Nothing
+                    strArgs = Nothing
                 End If
 
             Catch ex As Exception
@@ -128,6 +132,7 @@
             Try
                 procResulsts = Process.Start(procPing)
                 procResulsts.Dispose()
+                procPing = Nothing
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -158,6 +163,8 @@
             Else
                 Try
                     Process.Start(procVNC5)
+                    procVNC5 = Nothing
+                    procVNC4 = Nothing
                 Catch ex As Exception
                     Throw New Exception(ex.Message)
                 End Try
@@ -169,6 +176,8 @@
             Else
                 Try
                     Process.Start(procVNC4)
+                    procVNC5 = Nothing
+                    procVNC4 = Nothing
                 Catch ex As Exception
                     Throw New Exception(ex.Message)
                 End Try
@@ -192,6 +201,7 @@
         Else
             Try
                 Process.Start(procForcedRestart)
+                procForcedRestart = Nothing
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
@@ -257,6 +267,8 @@
                     frmResults.txtResults.Text = strResults
                     frmResults.Show()
                     procResults.Dispose()
+                    procRemoteInfo = Nothing
+                    strArgs = Nothing
                     My.Computer.FileSystem.DeleteFile("C:\temp\psinfo.txt")
                 End If
 

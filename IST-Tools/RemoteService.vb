@@ -13,6 +13,7 @@
         'Set variables for VNC4 Services
         Dim strVNC4ArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & "WinVNC4" & Chr(34)
         Dim strVNC4ArgsStop As String = "\\" & strIPAddress & " stop " & Chr(34) & "WinVNC4" & Chr(34)
+
         'Set variables for VNC5 services
         Dim strVNC5ArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & "vncserver" & Chr(34)
         Dim strVNC5ArgsStop As String = "\\" & strIPAddress & " stop " & Chr(34) & "vncserver" & Chr(34)
@@ -188,8 +189,6 @@
                 MessageBox.Show("No service specified", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Select
     End Sub
-
-
     Private Sub frmRemoteService_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         cmbServices.SelectedIndex = 0
     End Sub
