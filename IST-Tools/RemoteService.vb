@@ -3,6 +3,7 @@
     Private Sub btnExecute_Click(sender As System.Object, e As System.EventArgs) Handles btnExecute.Click
         Dim strIPAddress As String = frmISTTools.txtIPAddress.Text
         Dim strPSServicePath As String = "C:\Program Files (x86)\IST-Tools\PSTools\psservice.exe"
+        Dim strCMDPath As String = "C:\Windows\System32\cmd.exe"
         Dim intService As Integer = cmbServices.SelectedIndex
 
         'Set variables for custom service
@@ -30,6 +31,18 @@
         Dim strPSArgsStart As String = "\\" & strIPAddress & " start " & Chr(34) & "Spooler" & Chr(34)
         Dim strPSArgsStop As String = "\\" & strIPAddress & " stop " & Chr(34) & "Spooler" & Chr(34)
 
+        'Set variables for enabling/disabling VNC4 on start up in services.msc
+        Dim strEnableVNC4 As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config winvnc4 start= auto" & Chr(34)
+        Dim strDisableVNC4 As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config winvnc4 start= disabled" & Chr(34)
+
+        'Set variables for enabling/disabling VNC5 on start up in services.msc
+        Dim strEnableVNC5 As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config vncserver start= auto" & Chr(34)
+        Dim strDisableVNC5 As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config vncserver start= disabled" & Chr(34)
+
+        'Set variables for enabling/disabling Custom service on start up in services.msc
+        Dim strCustomEnable As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config " & strCustomService & " start= auto" & Chr(34)
+        Dim strCustomDisable As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config " & strCustomService & " start= disabled" & Chr(34)
+
 
         Select Case intService
             Case 0
@@ -56,6 +69,18 @@
                         Catch ex As Exception
                             Throw New Exception(ex.Message)
                         End Try
+                    ElseIf rdbEnableService.Checked Then
+                        Try
+                            Process.Start(strCMDPath, strEnableVNC5)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    ElseIf rdbDisableService.Checked Then
+                        Try
+                            Process.Start(strCMDPath, strDisableVNC5)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
                     End If
                 Else
                     If rdbStart.Checked Then
@@ -76,6 +101,18 @@
                             'Pause for service to stop
                             System.Threading.Thread.Sleep(5000)
                             Process.Start(strPSServicePath, strVNC4ArgsStart)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    ElseIf rdbEnableService.Checked Then
+                        Try
+                            Process.Start(strCMDPath, strEnableVNC4)
+                        Catch ex As Exception
+                            Throw New Exception(ex.Message)
+                        End Try
+                    ElseIf rdbEnableService.Checked Then
+                        Try
+                            Process.Start(strCMDPath, strDisableVNC4)
                         Catch ex As Exception
                             Throw New Exception(ex.Message)
                         End Try
@@ -181,6 +218,18 @@
                         'Pause
                         System.Threading.Thread.Sleep(5000)
                         Process.Start(strPSServicePath, strCustomArgsStart)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
+                ElseIf rdbEnableService.Checked Then
+                    Try
+                        Process.Start(strCMDPath, strCustomEnable)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
+                ElseIf rdbDisableService.Checked Then
+                    Try
+                        Process.Start(strCMDPath, strCustomDisable)
                     Catch ex As Exception
                         Throw New Exception(ex.Message)
                     End Try

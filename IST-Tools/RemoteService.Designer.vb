@@ -31,6 +31,8 @@ Partial Class frmRemoteService
         Me.btnExecute = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtCustomProcess = New System.Windows.Forms.TextBox()
+        Me.rdbEnableService = New System.Windows.Forms.RadioButton()
+        Me.rdbDisableService = New System.Windows.Forms.RadioButton()
         Me.SuspendLayout()
         '
         'cmbServices
@@ -87,7 +89,7 @@ Partial Class frmRemoteService
         '
         'btnExecute
         '
-        Me.btnExecute.Location = New System.Drawing.Point(69, 155)
+        Me.btnExecute.Location = New System.Drawing.Point(69, 204)
         Me.btnExecute.Name = "btnExecute"
         Me.btnExecute.Size = New System.Drawing.Size(75, 23)
         Me.btnExecute.TabIndex = 5
@@ -111,11 +113,36 @@ Partial Class frmRemoteService
         Me.txtCustomProcess.Size = New System.Drawing.Size(132, 20)
         Me.txtCustomProcess.TabIndex = 7
         '
+        'rdbEnableService
+        '
+        Me.rdbEnableService.AutoSize = True
+        Me.rdbEnableService.Location = New System.Drawing.Point(16, 166)
+        Me.rdbEnableService.Name = "rdbEnableService"
+        Me.rdbEnableService.Size = New System.Drawing.Size(58, 17)
+        Me.rdbEnableService.TabIndex = 8
+        Me.rdbEnableService.TabStop = True
+        Me.rdbEnableService.Text = "Enable"
+        Me.rdbEnableService.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbEnableService.UseVisualStyleBackColor = True
+        '
+        'rdbDisableService
+        '
+        Me.rdbDisableService.AutoSize = True
+        Me.rdbDisableService.Location = New System.Drawing.Point(142, 166)
+        Me.rdbDisableService.Name = "rdbDisableService"
+        Me.rdbDisableService.Size = New System.Drawing.Size(60, 17)
+        Me.rdbDisableService.TabIndex = 9
+        Me.rdbDisableService.TabStop = True
+        Me.rdbDisableService.Text = "Disable"
+        Me.rdbDisableService.UseVisualStyleBackColor = True
+        '
         'frmRemoteService
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(218, 190)
+        Me.ClientSize = New System.Drawing.Size(222, 239)
+        Me.Controls.Add(Me.rdbDisableService)
+        Me.Controls.Add(Me.rdbEnableService)
         Me.Controls.Add(Me.txtCustomProcess)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnExecute)
@@ -141,4 +168,6 @@ Partial Class frmRemoteService
     Friend WithEvents btnExecute As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtCustomProcess As System.Windows.Forms.TextBox
+    Friend WithEvents rdbEnableService As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbDisableService As System.Windows.Forms.RadioButton
 End Class
