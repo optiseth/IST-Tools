@@ -13,7 +13,7 @@ Public Class frmPSExec
 
     Private Sub btnSelectFile_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectFile.Click
         With OpenFileDialog1
-            .Filter = "MSI Files (*.msi)|*.msi|Batch Files (*.bat)|*.bat"
+            .Filter = "MSI Files (*.msi)|*.msi|Batch Files (*.bat)|*.bat|VB Script (*.vbs)|*.vbs"
             .FilterIndex = 1
             .Title = "File to Execute"
         End With
@@ -76,34 +76,48 @@ Public Class frmPSExec
         Dim strSingleArgsMSI As String = " /k " & Chr(34) & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psexec.exe" & Chr(34) & _
                                         " \\" & frmISTTools.txtIPAddress.Text & " -s msiexec.exe /i " & _
                                         Chr(34) & strFileName & Chr(34) & " /q" & Chr(34)
+
         Dim strSingleArgsBAT As String = " /k " & Chr(34) & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psexec.exe" & Chr(34) & _
+                                        " \\" & frmISTTools.txtIPAddress.Text & " -s -c " & _
+                                        Chr(34) & strFileName & Chr(34) & Chr(34)
+
+        Dim strSingleArgsVBS As String = " /k " & Chr(34) & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psexec.exe" & Chr(34) & _
                                         " \\" & frmISTTools.txtIPAddress.Text & " -s -c " & _
                                         Chr(34) & strFileName & Chr(34) & Chr(34)
 
         Dim strMultiArgsMSI As String = " /k " & Chr(34) & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psexec.exe" & Chr(34) & _
                                         " @C:\temp\" & strSafeIPListName & " -s msiexec.exe /i " & _
                                         Chr(34) & strFileName & Chr(34) & " /q" & Chr(34)
+
         Dim strMultiArgsBAT As String = " /k " & Chr(34) & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psexec.exe" & Chr(34) & _
+                                        " @C:\temp\" & strSafeIPListName & " -s -c " & Chr(34) & strFileName & Chr(34) & Chr(34)
+
+        Dim strMultiArgsVBS As String = " /k " & Chr(34) & Chr(34) & "C:\Program Files (x86)\IST-Tools\PSTools\psexec.exe" & Chr(34) & _
                                         " @C:\temp\" & strSafeIPListName & " -s -c " & Chr(34) & strFileName & Chr(34) & Chr(34)
 
         Dim objFileInfo As New FileInfo(strSafeFileName)
 
         If rdbSinglePC.Checked And strFileName <> "" Then
             Try
-                If objFileInfo.Extension.Equals("msi") Then
+                If objFileInfo.Extension.Equals(".msi") Then
                     Process.Start(strCMDPath, strSingleArgsMSI)
-                Else
+                ElseIf objFileInfo.Extension.Equals(".bat") Then
                     Process.Start(strCMDPath, strSingleArgsBAT)
+                ElseIf objFileInfo.Extension.Equals(".vbs") Then
+                    MessageBox.Show("Success", "Success")
+                    Process.Start(strCMDPath, strSingleArgsVBS)
                 End If
             Catch ex As Exception
                 Throw New Exception(ex.Message)
             End Try
         ElseIf rdbMultiplePCs.Checked And strIPListName <> "" And strSafeIPListName <> "" Then
             Try
-                If objFileInfo.Extension.Equals("msi") Then
+                If objFileInfo.Extension.Equals(".msi") Then
                     Process.Start(strCMDPath, strMultiArgsMSI)
-                Else
+                ElseIf objFileInfo.Extension.Equals(".bat") Then
                     Process.Start(strCMDPath, strMultiArgsBAT)
+                ElseIf objFileInfo.Extension.Equals(".vbs") Then
+                    Process.Start(strCMDPath, strMultiArgsVBS)
                 End If
             Catch ex As Exception
                 Throw New Exception(ex.Message)

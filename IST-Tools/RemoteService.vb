@@ -43,6 +43,14 @@
         Dim strCustomEnable As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config " & strCustomService & " start= auto" & Chr(34)
         Dim strCustomDisable As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config " & strCustomService & " start= disabled" & Chr(34)
 
+        'Set variables for enabling/disabling RemoteRegistry service on start up in services.msc
+        Dim strEnableRR As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config RemoteRegistry start= auto" & Chr(34)
+        Dim strDisableRR As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config RemoteRegistry start= disabled" & Chr(34)
+
+        'Set variables for enabling/disabling  WindowsFirewall service on start up in services.msc
+        Dim strEnableWF As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config MpsSvc start= auto" & Chr(34)
+        Dim strDisableWF As String = " /k " & Chr(34) & "sc \\" & strIPAddress & " config MpsSvc start= disabled" & Chr(34)
+
 
         Select Case intService
             Case 0
@@ -117,7 +125,7 @@
                             Throw New Exception(ex.Message)
                         End Try
                     Else
-                        MessageBox.Show("Please select ""Start"", ""Stop"", or ""Restart""", "Error", MessageBoxButtons.OK, _
+                        MessageBox.Show("Please select ""Start"", ""Stop"", ""Restart"", ""Enable"", or ""Disable""", "Error", MessageBoxButtons.OK, _
                                         MessageBoxIcon.Warning)
                     End If
                 End If
@@ -143,8 +151,20 @@
                     Catch ex As Exception
                         Throw New Exception(ex.Message)
                     End Try
+                ElseIf rdbEnableService.Checked Then
+                    Try
+                        Process.Start(strCMDPath, strEnableRR)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
+                ElseIf rdbDisableService.Checked Then
+                    Try
+                        Process.Start(strCMDPath, strDisableRR)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
                 Else
-                    MessageBox.Show("Please select ""Start"", ""Stop"", or ""Restart""", "Error", MessageBoxButtons.OK, _
+                    MessageBox.Show("Please select ""Start"", ""Stop"", ""Restart"", ""Enable"", or ""Disable""", "Error", MessageBoxButtons.OK, _
                                     MessageBoxIcon.Warning)
                 End If
             Case 2
@@ -169,8 +189,20 @@
                     Catch ex As Exception
                         Throw New Exception(ex.Message)
                     End Try
+                ElseIf rdbEnableService.Checked Then
+                    Try
+                        Process.Start(strCMDPath, strEnableWF)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
+                ElseIf rdbDisableService.Checked Then
+                    Try
+                        Process.Start(strCMDPath, strDisableWF)
+                    Catch ex As Exception
+                        Throw New Exception(ex.Message)
+                    End Try
                 Else
-                    MessageBox.Show("Please select ""Start"", ""Stop"", or ""Restart""", "Error", MessageBoxButtons.OK, _
+                    MessageBox.Show("Please select ""Start"", ""Stop"", ""Restart"", ""Enable"", or ""Disable""", "Error", MessageBoxButtons.OK, _
                                     MessageBoxIcon.Warning)
                 End If
             Case 3

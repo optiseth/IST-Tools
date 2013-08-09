@@ -45,7 +45,8 @@
                 Process.Start(strRootPath)
                 strRootPath = Nothing
             Catch ex As Exception
-                Throw New Exception(ex.Message)
+                MessageBox.Show("PC is either down or services for UNC aren't working properly.", "Error", MessageBoxButtons.OK, _
+                                MessageBoxIcon.Warning)
             End Try
         End If
     End Sub
